@@ -1,4 +1,7 @@
-# Go
+# Ignorar carpeta sistemas6 (si aún aplica)
+sistemas6/
+
+# Archivos de Go
 *.exe
 *.test
 *.out
@@ -6,7 +9,7 @@
 *.so
 *.dylib
 
-# C#
+# Archivos de C#
 [Bb]in/
 [Oo]bj/
 *.exe
@@ -17,3 +20,18 @@
 *.user
 *.csproj.user
 *.vs/
+
+# Archivos comunes de IDEs
+.idea/
+.vscode/
+*.swp
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Otros archivos no deseados
+*.pdf
+*.jpg
+*.png
+*.docx
+*.xlsx
