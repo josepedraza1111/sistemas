@@ -1,1 +1,31 @@
+# Ignorar carpeta sistemas6 (si aún aplica)
 sistemas6/
+
+# Archivos de Go
+*.exe
+*.test
+*.out
+*.dll
+*.so
+*.dylib
+
+# Archivos de C#
+[Bb]in/
+[Oo]bj/
+*.exe
+*.dll
+*.app
+*.log
+*.suo
+*.user
+*.csproj.user
+*.vs/
+
+# Archivos comunes de IDEs
+.idea/
+.vscode/
+*.swp
+*.tmp
+.DS_Store
+Thumbs.db
+
