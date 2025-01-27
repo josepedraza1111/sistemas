@@ -1,1 +1,19 @@
-sistemas6/
+# Go
+*.exe
+*.test
+*.out
+*.dll
+*.so
+*.dylib
+
+# C#
+[Bb]in/
+[Oo]bj/
+*.exe
+*.dll
+*.app
+*.log
+*.suo
+*.user
+*.csproj.user
+*.vs/
