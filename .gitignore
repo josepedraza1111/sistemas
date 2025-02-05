@@ -29,3 +29,9 @@ sistemas6/
 .DS_Store
 Thumbs.db
 
+# Otros archivos no deseados
+*.pdf
+*.jpg
+*.png
+*.docx
+*.xlsx
