@@ -8,6 +8,8 @@ namespace PokemonApi.Infrastructure
         public DbSet<PokemonEntity> Pokemons { get; set; }
         public DbSet<BooksEntity> Books { get; set; }
 
+         public DbSet<HobbysEntity> Hobbys { get; set;}
+
         public RelationalDbContext(DbContextOptions<RelationalDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +35,12 @@ namespace PokemonApi.Infrastructure
                 entity.Property(s => s.Author).IsRequired().HasMaxLength(100);
                 entity.Property(s => s.PublishedDate).IsRequired();
             });
+         
+    modelBuilder.Entity<HobbysEntity>(entity =>{
+    entity.HasKey(s=>s.Id);
+    entity.Property(s=>s.Name).IsRequired().HasMaxLength(100);
+    entity.Property(s=>s.Top).IsRequired();
+    });
         }
     }
 }
