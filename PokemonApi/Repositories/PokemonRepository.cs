@@ -4,7 +4,6 @@ using PokemonApi.Models;
 using PokemonApi.Mappers;
 
 namespace PokemonApi.Repositories;
-
 public class PokemonRepository : IPokemonRepository
 {   
     private readonly RelationalDbContext _context;

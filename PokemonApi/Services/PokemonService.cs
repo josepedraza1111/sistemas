@@ -4,12 +4,10 @@ using PokemonApi.Mappers;
 using PokemonApi.Repositories;
 
 namespace PokemonApi.Services;
-
 public class PokemonService : IPokemonService
 {
     private readonly IPokemonRepository _pokemonRepository;
 
-    //TDD = UNIT TEST(TEST DRIVEN DEVELOPMENT)
 
     public PokemonService(IPokemonRepository pokemonRepository)
     {
