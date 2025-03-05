@@ -1,7 +1,6 @@
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://hobbie-api/hobbie-service" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://hobbie-api/hobbie-service" name="JoseMariaPedrazaTorres">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://hobby-api/hobby-service" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://hobby-api/hobby-service" name="JoseMariaPedrazaTorres">
 <wsdl:types>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://hobbie-api/hobbie-service">
-<xs:import namespace="http://pokemon-api/pokemon-service"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://hobby-api/hobby-service">
 <xs:element name="GetHobbyById">
 <xs:complexType>
 <xs:sequence>
@@ -12,7 +11,7 @@
 <xs:element name="GetHobbyByIdResponse">
 <xs:complexType>
 <xs:sequence>
-<xs:element xmlns:q1="http://pokemon-api/pokemon-service" minOccurs="1" name="GetHobbyByIdResult" nillable="true" type="q1:HobbysDto"/>
+<xs:element minOccurs="1" name="GetHobbyByIdResult" nillable="true" type="tns:HobbysDto"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
@@ -40,7 +39,35 @@
 <xs:element name="GetHobbyByNameResponse">
 <xs:complexType>
 <xs:sequence>
-<xs:element xmlns:q2="http://pokemon-api/pokemon-service" minOccurs="1" name="GetHobbyByNameResult" nillable="true" type="q2:ArrayOfHobbysDto"/>
+<xs:element minOccurs="1" name="GetHobbyByNameResult" nillable="true" type="tns:ArrayOfHobbysDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="CreateHobby">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="createHobbieDto" nillable="true" type="tns:CreateHobbyDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="CreateHobbyResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="CreateHobbyResult" nillable="true" type="tns:HobbysDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateHobby">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="hobbie" nillable="true" type="tns:UpdateHobbyDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateHobbyResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="UpdateHobbyResult" nillable="true" type="tns:HobbysDto"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
@@ -86,7 +113,7 @@
 <xs:attribute name="Id" type="xs:ID"/>
 <xs:attribute name="Ref" type="xs:IDREF"/>
 </xs:schema>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://pokemon-api/pokemon-service" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://pokemon-api/pokemon-service">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://hobby-api/hobby-service" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://hobby-api/hobby-service">
 <xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
 <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
 <xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="HobbysDto">
@@ -97,6 +124,31 @@
 </xs:sequence>
 </xs:complexType>
 <xs:element name="HobbysDto" nillable="true" type="tns:HobbysDto"/>
+<xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="CreateHobbyDto">
+<xs:complexContent mixed="false">
+<xs:extension base="tns:HobbyCommon">
+<xs:sequence/>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="CreateHobbyDto" nillable="true" type="tns:CreateHobbyDto"/>
+<xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="HobbyCommon">
+<xs:sequence>
+<xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Top" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="HobbyCommon" nillable="true" type="tns:HobbyCommon"/>
+<xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="UpdateHobbyDto">
+<xs:complexContent mixed="false">
+<xs:extension base="tns:HobbyCommon">
+<xs:sequence>
+<xs:element minOccurs="0" name="Id" type="xs:int"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="UpdateHobbyDto" nillable="true" type="tns:UpdateHobbyDto"/>
 <xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="ArrayOfHobbysDto">
 <xs:sequence>
 <xs:element minOccurs="0" maxOccurs="unbounded" name="HobbysDto" nillable="true" type="tns:HobbysDto"/>
@@ -126,24 +178,44 @@
 <wsdl:message name="JoseMariaPedrazaTorres_GetHobbyByName_OutputMessage">
 <wsdl:part name="parameters" element="tns:GetHobbyByNameResponse"/>
 </wsdl:message>
+<wsdl:message name="JoseMariaPedrazaTorres_CreateHobby_InputMessage">
+<wsdl:part name="parameters" element="tns:CreateHobby"/>
+</wsdl:message>
+<wsdl:message name="JoseMariaPedrazaTorres_CreateHobby_OutputMessage">
+<wsdl:part name="parameters" element="tns:CreateHobbyResponse"/>
+</wsdl:message>
+<wsdl:message name="JoseMariaPedrazaTorres_UpdateHobby_InputMessage">
+<wsdl:part name="parameters" element="tns:UpdateHobby"/>
+</wsdl:message>
+<wsdl:message name="JoseMariaPedrazaTorres_UpdateHobby_OutputMessage">
+<wsdl:part name="parameters" element="tns:UpdateHobbyResponse"/>
+</wsdl:message>
 <wsdl:portType name="JoseMariaPedrazaTorres">
 <wsdl:operation name="GetHobbyById">
-<wsdl:input wsam:Action="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/GetHobbyById" message="tns:JoseMariaPedrazaTorres_GetHobbyById_InputMessage"/>
-<wsdl:output wsam:Action="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/GetHobbyByIdResponse" message="tns:JoseMariaPedrazaTorres_GetHobbyById_OutputMessage"/>
+<wsdl:input wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/GetHobbyById" message="tns:JoseMariaPedrazaTorres_GetHobbyById_InputMessage"/>
+<wsdl:output wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/GetHobbyByIdResponse" message="tns:JoseMariaPedrazaTorres_GetHobbyById_OutputMessage"/>
 </wsdl:operation>
 <wsdl:operation name="DeleteHobbyById">
-<wsdl:input wsam:Action="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/DeleteHobbyById" message="tns:JoseMariaPedrazaTorres_DeleteHobbyById_InputMessage"/>
-<wsdl:output wsam:Action="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/DeleteHobbyByIdResponse" message="tns:JoseMariaPedrazaTorres_DeleteHobbyById_OutputMessage"/>
+<wsdl:input wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/DeleteHobbyById" message="tns:JoseMariaPedrazaTorres_DeleteHobbyById_InputMessage"/>
+<wsdl:output wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/DeleteHobbyByIdResponse" message="tns:JoseMariaPedrazaTorres_DeleteHobbyById_OutputMessage"/>
 </wsdl:operation>
 <wsdl:operation name="GetHobbyByName">
-<wsdl:input wsam:Action="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/GetHobbyByName" message="tns:JoseMariaPedrazaTorres_GetHobbyByName_InputMessage"/>
-<wsdl:output wsam:Action="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/GetHobbyByNameResponse" message="tns:JoseMariaPedrazaTorres_GetHobbyByName_OutputMessage"/>
+<wsdl:input wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/GetHobbyByName" message="tns:JoseMariaPedrazaTorres_GetHobbyByName_InputMessage"/>
+<wsdl:output wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/GetHobbyByNameResponse" message="tns:JoseMariaPedrazaTorres_GetHobbyByName_OutputMessage"/>
+</wsdl:operation>
+<wsdl:operation name="CreateHobby">
+<wsdl:input wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/CreateHobby" message="tns:JoseMariaPedrazaTorres_CreateHobby_InputMessage"/>
+<wsdl:output wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/CreateHobbyResponse" message="tns:JoseMariaPedrazaTorres_CreateHobby_OutputMessage"/>
+</wsdl:operation>
+<wsdl:operation name="UpdateHobby">
+<wsdl:input wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/UpdateHobby" message="tns:JoseMariaPedrazaTorres_UpdateHobby_InputMessage"/>
+<wsdl:output wsam:Action="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/UpdateHobbyResponse" message="tns:JoseMariaPedrazaTorres_UpdateHobby_OutputMessage"/>
 </wsdl:operation>
 </wsdl:portType>
 <wsdl:binding name="BasicHttpBinding_JoseMariaPedrazaTorres" type="tns:JoseMariaPedrazaTorres">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
 <wsdl:operation name="GetHobbyById">
-<soap:operation soapAction="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/GetHobbyById" style="document"/>
+<soap:operation soapAction="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/GetHobbyById" style="document"/>
 <wsdl:input>
 <soap:body use="literal"/>
 </wsdl:input>
@@ -152,7 +224,7 @@
 </wsdl:output>
 </wsdl:operation>
 <wsdl:operation name="DeleteHobbyById">
-<soap:operation soapAction="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/DeleteHobbyById" style="document"/>
+<soap:operation soapAction="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/DeleteHobbyById" style="document"/>
 <wsdl:input>
 <soap:body use="literal"/>
 </wsdl:input>
@@ -161,7 +233,25 @@
 </wsdl:output>
 </wsdl:operation>
 <wsdl:operation name="GetHobbyByName">
-<soap:operation soapAction="http://hobbie-api/hobbie-service/JoseMariaPedrazaTorres/GetHobbyByName" style="document"/>
+<soap:operation soapAction="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/GetHobbyByName" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CreateHobby">
+<soap:operation soapAction="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/CreateHobby" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="UpdateHobby">
+<soap:operation soapAction="http://hobby-api/hobby-service/JoseMariaPedrazaTorres/UpdateHobby" style="document"/>
 <wsdl:input>
 <soap:body use="literal"/>
 </wsdl:input>

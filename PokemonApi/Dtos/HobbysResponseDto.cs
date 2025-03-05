@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 namespace PokemonApi.Dtos;
 
-[DataContract(Name = "HobbysDto", Namespace = "http://pokemon-api/pokemon-service")]
+[DataContract(Name = "HobbysDto", Namespace = "http://hobby-api/hobby-service")]
 public class HobbysResponseDto
 {
         [DataMember(Name = "Id", Order = 1)]

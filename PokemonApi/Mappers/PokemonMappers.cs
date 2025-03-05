@@ -26,19 +26,7 @@ public static class PokemonMappers
         };
     }
 
-    public static Hobby ToModel(this HobbysEntity entity)
-    {
-        if (entity is null)
-        {
-            return null;
-        }
-        return new Hobby
-        {
-            Id = entity.Id,
-            Name = entity.Name,
-            Top = entity.Top
-        };
-    }
+    
 
     public static PokemonResponseDto ToDto(this Pokemon pokemon)
     {
@@ -58,15 +46,6 @@ public static class PokemonMappers
         };
     }
 
-    public static HobbysResponseDto ToDto(this Hobby hobby)
-    {
-        return new HobbysResponseDto
-        {
-            Id = hobby.Id,
-            Name = hobby.Name,
-            Top = hobby.Top
-        };
-    }
 
     public static PokemonEntity ToEntity(this Pokemon pokemon)
     {
@@ -83,13 +62,24 @@ public static class PokemonMappers
         };
     }
 
-    public static HobbysEntity ToEntity(this Hobby hobby)
-    {
-        return new HobbysEntity
-        {
-            Id = hobby.Id,
-            Name = hobby.Name,
-            Top = hobby.Top
+    public static Pokemon ToModel(this CreatePokemonDto pokemon){
+        return new Pokemon{
+            Id = Guid.NewGuid(),
+            Name = pokemon.Name,
+            Type = pokemon.Type,
+            Level = pokemon.Level,
+            Height = pokemon.Height,
+            Stats = pokemon.Stats.ToModel()
+        };
+    }
+
+    public static Stats ToModel(this StatsDto stats){
+        return new Stats{
+            Attack = stats.Attack,
+            Defense = stats.Defense,
+            Speed = stats.Speed
         };
     }
 }
+
+
