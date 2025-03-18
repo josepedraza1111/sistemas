@@ -10,7 +10,10 @@ builder.Services.AddSoapCore();
 //TODO: CHANGE FROM SCOPED TO SINGLENTON
 builder.Services.AddSingleton<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
-
+builder.Services.AddSingleton<IBookService, BookService>();
+builder.Services.AddScoped<IBookRepository,BookRepository>();
+builder.Services.AddSingleton<IHobbyService, HobbyService>();
+builder.Services.AddScoped<IHobbyRepository,HobbyRepository>();
 
 builder.Services.AddDbContext<RelationalDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
@@ -21,5 +24,7 @@ builder.Services.AddDbContext<RelationalDbContext>(options => options.UseMySql(b
 var app= builder.Build();
 
 app.UseSoapEndpoint<IPokemonService>("/PokemonService.svc", new SoapEncoderOptions());
+app.UseSoapEndpoint<IHobbyService>("/JoseMariaPedrazaTorres.svc",new SoapEncoderOptions());
+app.UseSoapEndpoint<IBookService>("/BookService.svc",new SoapEncoderOptions());
 
 app.Run();

@@ -1,18 +1,21 @@
 using Microsoft.EntityFrameworkCore;
-using PokemonApi.infrastructure.Entities;
+using PokemonApi.Infrastructure.Entities;
+
 namespace PokemonApi.Infrastructure
 {
     public class RelationalDbContext : DbContext
     {
         public DbSet<PokemonEntity> Pokemons { get; set; }
+        public DbSet<BooksEntity> Books { get; set; }
 
-        public RelationalDbContext(DbContextOptions<RelationalDbContext> options) : base(options)
-        {
-        }
+         public DbSet<HobbysEntity> Hobbys { get; set;}
+
+        public RelationalDbContext(DbContextOptions<RelationalDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<PokemonEntity>(entity =>
             {
                 entity.HasKey(s => s.Id);
@@ -24,6 +27,20 @@ namespace PokemonApi.Infrastructure
                 entity.Property(s => s.Speed).IsRequired();
                 entity.Property(s => s.Height).IsRequired();
             });
+
+            modelBuilder.Entity<BooksEntity>(entity =>
+            {
+                entity.HasKey(s => s.Id);
+                entity.Property(s => s.Title).IsRequired().HasMaxLength(100);
+                entity.Property(s => s.Author).IsRequired().HasMaxLength(100);
+                entity.Property(s => s.PublishedDate).IsRequired();
+            });
+         
+    modelBuilder.Entity<HobbysEntity>(entity =>{
+    entity.HasKey(s=>s.Id);
+    entity.Property(s=>s.Name).IsRequired().HasMaxLength(100);
+    entity.Property(s=>s.Top).IsRequired();
+    });
         }
     }
 }
