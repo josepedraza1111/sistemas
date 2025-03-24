@@ -5,7 +5,9 @@ namespace PokemonApi.Models
         public int Attack { get; set; }
         public int Defense { get; set; }
         public int Speed { get; set; }
+
          public int Height {get; set;}
         
+
     }
 }

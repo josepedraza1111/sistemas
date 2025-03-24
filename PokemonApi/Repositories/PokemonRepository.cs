@@ -40,14 +40,16 @@ public class PokemonRepository : IPokemonRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    // Implementación del método UpdateAsync
+
+
     public async Task UpdateAsync(Pokemon pokemon, CancellationToken cancellationToken)
     {
         _context.Pokemons.Update(pokemon.ToEntity());
         await _context.SaveChangesAsync(cancellationToken);
+
     }
 
-    // Implementación del método GetByNameAsync
+   
     public async Task<List<Pokemon>> GetByNameAsync(string name, CancellationToken cancellationToken)
     {
         var pokemons = await _context.Pokemons.AsNoTracking()
@@ -55,4 +57,5 @@ public class PokemonRepository : IPokemonRepository
             .ToListAsync(cancellationToken);
         return pokemons.Select(p => p.ToModel()).ToList();
     }
+
 }

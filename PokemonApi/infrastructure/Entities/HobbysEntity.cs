@@ -1,3 +1,4 @@
+
 namespace HobbyApi.Infrastructure.Entities;
 
     public class HobbysEntity

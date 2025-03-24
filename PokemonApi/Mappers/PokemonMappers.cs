@@ -2,6 +2,7 @@ using PokemonApi.Dtos;
 using PokemonApi.Infrastructure.Entities;
 using PokemonApi.Models;
 
+
 namespace PokemonApi.Mappers;
 
 public static class PokemonMapper{
@@ -22,11 +23,14 @@ public static class PokemonMapper{
             return null;
         }
         return new Pokemon{
+
             Id = entity.Id,
             Name = entity.Name,
             Level = entity.Level,
             Type = entity.Type,
+
             Stats = new Stats{
+
                 Attack = entity.Attack,
                 Defense = entity.Defense,
                 Speed = entity.Speed,
@@ -35,20 +39,28 @@ public static class PokemonMapper{
         };
     }
 
+
     public static PokemonResponseDto ToDto(this Pokemon pokemon){
         return new PokemonResponseDto{
+
             Id = pokemon.Id,
             Level = pokemon.Level,
             Name = pokemon.Name,
             Type = pokemon.Type,
+
             Stats = new StatsDto {
+
                 Attack = pokemon.Stats.Attack,
-                Speed = pokemon.Stats.Speed,
                 Defense = pokemon.Stats.Defense,
+                Speed = pokemon.Stats.Speed,
+
+                Defense = pokemon.Stats.Defense,
+
                 Height = pokemon.Stats.Height
             }
         };
     }
+
 
     public static Pokemon ToModel(this CreatePokemonDto pokemon)
     {
@@ -57,9 +69,11 @@ public static class PokemonMapper{
             Name = pokemon.Name,
             Type = pokemon.Type,
             Level = pokemon.Level,
+
             Stats = pokemon.Stats.ToModel()
         };
     }
+
 
     public static Stats ToModel (this StatsDto stats){
         return new Stats{
@@ -78,7 +92,10 @@ public static class PokemonMapper{
     public static List<PokemonResponseDto> ToDtoList(this List<Pokemon> pokemons)
     {
         return pokemons?.Select(b => b.ToDto()).ToList() ?? new List<PokemonResponseDto>();
+
     }
+
 
     
 }
+

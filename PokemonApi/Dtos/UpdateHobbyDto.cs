@@ -6,6 +6,7 @@ namespace HobbyApi.Dtos;
     public class UpdateHobbyDto : HobbyCommon
     {
         [DataMember(Name = "Id", Order = 3)]
+
         public Guid Id { get; set; }
     }
 

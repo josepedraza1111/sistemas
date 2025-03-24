@@ -1,3 +1,4 @@
+
 using HobbyApi.Mappers;
 using PokemonApi.Infrastructure;
 using HobbyApi.Models;
@@ -6,6 +7,7 @@ using HobbyApi.Repositories;
 
 
 namespace PokemonApi.Repositories;
+
 
     public class HobbyRepository :  IHobbyRepository
     {
@@ -16,12 +18,16 @@ namespace PokemonApi.Repositories;
             _context = context;
         }
 
+
         public async Task<Hobby> GetHobbyByIdAsync(Guid id, CancellationToken cancellationToken)
+
         {
             var hobby = await _context.Hobbys.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
             if (hobby == null)
             {
+
                 throw new Exception("Hobby not found");
+
             }
             return hobby.ToModel();
         }
@@ -57,6 +63,7 @@ namespace PokemonApi.Repositories;
             }
             else
             {
+
                 throw new Exception("Hobby not found");
             }
         }

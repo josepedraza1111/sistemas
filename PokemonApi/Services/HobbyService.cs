@@ -1,4 +1,5 @@
 using System.ServiceModel;
+
 using HobbyApi.Dtos;
 using HobbyApi.Mappers;
 using HobbyApi.Repositories;
@@ -16,6 +17,7 @@ public class HobbyService : IHobbyService
     }
 
     public  async Task<HobbysResponseDto> GetHobbyById(Guid id,CancellationToken cancellationToken){
+
          var hobby =await _hobbyRepository.GetHobbyByIdAsync(id,cancellationToken);
    if (hobby is null)
    {
@@ -25,8 +27,9 @@ public class HobbyService : IHobbyService
 
     }
 
-      
+
         public async Task<bool> DeleteHobbyById(Guid id, CancellationToken cancellationToken){
+
             var hobby = await _hobbyRepository.GetHobbyByIdAsync(id,cancellationToken);
         if(hobby is null)
 {
@@ -37,7 +40,9 @@ public class HobbyService : IHobbyService
         }
 
     
+
      public async Task<List<HobbysResponseDto>> GetHobbyByName(string name,CancellationToken cancellationToken){
+
             
     var hobbys = await _hobbyRepository.GetHobbyByNameAsync(name, cancellationToken);
 
@@ -72,7 +77,9 @@ public class HobbyService : IHobbyService
         var hobbyToUpdate=await _hobbyRepository.GetHobbyByIdAsync(hobby.Id,cancellationToken);
 
         if(hobbyToUpdate is null){
+
             throw new FaultException("Hobby not found");
+
         }
 
         hobbyToUpdate.Name=hobby.Name;
