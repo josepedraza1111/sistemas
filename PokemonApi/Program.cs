@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using PokemonApi.Services;
 using PokemonApi.Infrastructure;
 using PokemonApi.Repositories;
+using HobbyApi.Repositories;
+using HobbyApi.Infrastructure;
+using HobbyApi.Services;
 using SoapCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +18,11 @@ builder.Services.AddScoped<IBookRepository,BookRepository>();
 builder.Services.AddSingleton<IHobbyService, HobbyService>();
 builder.Services.AddScoped<IHobbyRepository,HobbyRepository>();
 
+ 
+builder.Services.AddSingleton<IHobbyService, HobbyService>();
+builder.Services.AddScoped<IHobbyRepository,HobbyRepository>();
+
+
 builder.Services.AddDbContext<RelationalDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
 //builder.Services.AddScoped<>(); Crea una nueva instancia del servicio se crea una vez por cada solicitud HTTP y se comparte en todos los componentes que lo soliciten durante esta misma solicitud
@@ -26,5 +34,8 @@ var app= builder.Build();
 app.UseSoapEndpoint<IPokemonService>("/PokemonService.svc", new SoapEncoderOptions());
 app.UseSoapEndpoint<IHobbyService>("/JoseMariaPedrazaTorres.svc",new SoapEncoderOptions());
 app.UseSoapEndpoint<IBookService>("/BookService.svc",new SoapEncoderOptions());
+
+app.UseSoapEndpoint<IHobbyService>("/JoseMariaPedrazaTorres.svc",new SoapEncoderOptions());
+
 
 app.Run();

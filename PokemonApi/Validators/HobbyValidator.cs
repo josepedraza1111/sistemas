@@ -1,6 +1,8 @@
-using PokemonApi.Models;
+
+using HobbyApi.Models;
 using System.ServiceModel;
-namespace PokemonApi.Validators;
+namespace HobbyApi.Validators;
+
 
 public static class HobbyValidator
 {

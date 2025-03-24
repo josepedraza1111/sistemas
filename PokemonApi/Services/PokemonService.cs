@@ -11,7 +11,6 @@ public class PokemonService : IPokemonService
 {
     private readonly IPokemonRepository _pokemonRepository;
 
-    //TDD = UNIT TEST(TEST DRIVEN DEVELOPMENT)
 
     public PokemonService(IPokemonRepository pokemonRepository)
     {
@@ -49,12 +48,28 @@ public class PokemonService : IPokemonService
         pokemonToUpdate.Name = pokemon.Name;
         pokemonToUpdate.Type = pokemon.Type;
         pokemonToUpdate.Level = pokemon.Level;
-        pokemonToUpdate.Height = pokemon.Height;
+
         pokemonToUpdate.Stats.Attack = pokemon.Stats.Attack;
         pokemonToUpdate.Stats.Defense = pokemon.Stats.Defense;
         pokemonToUpdate.Stats.Speed = pokemon.Stats.Speed;
+          pokemonToUpdate.Stats.Height = pokemon.Stats.Height;
 
         await _pokemonRepository.UpdateAsync(pokemonToUpdate, cancellationToken);
         return pokemonToUpdate.ToDto();
+    }
+     public async Task<List<PokemonResponseDto>> GetPokemonByName(string name,CancellationToken cancellationToken){
+
+          
+    var Pokemons = await _pokemonRepository.GetByNameAsync(name, cancellationToken);
+
+  
+    if (Pokemons == null || !Pokemons.Any())
+    {
+        return new List<PokemonResponseDto>();
+    }
+    
+  
+    return Pokemons.Select(h => h.ToDto()).ToList();
+
     }
 }

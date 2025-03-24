@@ -1,9 +1,11 @@
-using PokemonApi.Models;
-using PokemonApi.Dtos;
-using PokemonApi.Infrastructure.Entities;
+
+using HobbyApi.Models;
+using HobbyApi.Infrastructure.Entities;
+using HobbyApi.Dtos;
 
 
-namespace PokemonApi.Mappers;
+namespace HobbyApi.Mappers;
+
 
 public static class HobbysMappers
 {
@@ -43,5 +45,14 @@ public static Hobby ToModel(this CreateHobbyDto hobby){
         Top=hobby.Top,
     };
 }
+  public static List<Hobby> ToModelList(this List<HobbysEntity> entities)
+    {
+        return entities?.Select(e => e.ToModel()).ToList() ?? new List<Hobby>();
+    }
+    public static List<HobbysResponseDto> ToDtoList(this List<Hobby> hobby)
+    {
+        return hobby?.Select(b => b.ToDto()).ToList() ?? new List<HobbysResponseDto>();
+    }
+
 
 }

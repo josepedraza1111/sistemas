@@ -1,10 +1,12 @@
 using System.ServiceModel;
-using PokemonApi.Dtos;
-using PokemonApi.Repositories;
-using PokemonApi.Mappers;
-using PokemonApi.Validators;
 
-namespace PokemonApi.Services;
+using HobbyApi.Dtos;
+using HobbyApi.Mappers;
+using HobbyApi.Repositories;
+using HobbyApi.Validators;
+
+
+namespace HobbyApi.Services;
 
 public class HobbyService : IHobbyService
 {
@@ -14,7 +16,8 @@ public class HobbyService : IHobbyService
          _hobbyRepository= hobbyRepository;
     }
 
-    public  async Task<HobbysResponseDto> GetHobbyById(int id,CancellationToken cancellationToken){
+    public  async Task<HobbysResponseDto> GetHobbyById(Guid id,CancellationToken cancellationToken){
+
          var hobby =await _hobbyRepository.GetHobbyByIdAsync(id,cancellationToken);
    if (hobby is null)
    {
@@ -24,8 +27,9 @@ public class HobbyService : IHobbyService
 
     }
 
-      
-        public async Task<bool> DeleteHobbyById(int id, CancellationToken cancellationToken){
+
+        public async Task<bool> DeleteHobbyById(Guid id, CancellationToken cancellationToken){
+
             var hobby = await _hobbyRepository.GetHobbyByIdAsync(id,cancellationToken);
         if(hobby is null)
 {
@@ -36,7 +40,9 @@ public class HobbyService : IHobbyService
         }
 
     
-         public async Task<List<HobbysResponseDto>> GetHobbyByName(string name,CancellationToken cancellationToken){
+
+     public async Task<List<HobbysResponseDto>> GetHobbyByName(string name,CancellationToken cancellationToken){
+
             
     var hobbys = await _hobbyRepository.GetHobbyByNameAsync(name, cancellationToken);
 
@@ -71,7 +77,9 @@ public class HobbyService : IHobbyService
         var hobbyToUpdate=await _hobbyRepository.GetHobbyByIdAsync(hobby.Id,cancellationToken);
 
         if(hobbyToUpdate is null){
-            throw new FaultException("Hobby no encontrado");
+
+            throw new FaultException("Hobby not found");
+
         }
 
         hobbyToUpdate.Name=hobby.Name;
