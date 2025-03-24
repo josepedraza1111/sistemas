@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using PokemonApi.Services;
 using PokemonApi.Infrastructure;
 using PokemonApi.Repositories;
+using HobbyApi.Repositories;
+using HobbyApi.Infrastructure;
+using HobbyApi.Services;
 using SoapCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,11 @@ builder.Services.AddSoapCore();
 //TODO: CHANGE FROM SCOPED TO SINGLENTON
 builder.Services.AddSingleton<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+
+
+ 
+builder.Services.AddSingleton<IHobbyService, HobbyService>();
+builder.Services.AddScoped<IHobbyRepository,HobbyRepository>();
 
 
 builder.Services.AddDbContext<RelationalDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
@@ -21,5 +29,8 @@ builder.Services.AddDbContext<RelationalDbContext>(options => options.UseMySql(b
 var app= builder.Build();
 
 app.UseSoapEndpoint<IPokemonService>("/PokemonService.svc", new SoapEncoderOptions());
+
+app.UseSoapEndpoint<IHobbyService>("/JoseMariaPedrazaTorres.svc",new SoapEncoderOptions());
+
 
 app.Run();

@@ -1,4 +1,5 @@
-
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using PokemonApi.Dtos;
 
 namespace PokemonApi.Models;
 
@@ -8,6 +9,5 @@ public class Pokemon
     public string Name { get; set; }
     public string Type { get; set; }
     public int Level { get; set; }
-    public int Height { get; set; }
     public Stats Stats { get; set; }
 }

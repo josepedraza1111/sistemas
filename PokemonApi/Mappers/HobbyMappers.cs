@@ -1,0 +1,55 @@
+using HobbyApi.Models;
+using HobbyApi.Infrastructure.Entities;
+using HobbyApi.Dtos;
+
+
+namespace HobbyApi.Mappers;
+
+public static class HobbysMappers
+{
+    public static Hobby ToModel(this HobbysEntity entity){
+        if(entity is null){
+            return null;
+        }
+        return new Hobby{
+            Id = entity.Id,
+            Name = entity.Name,
+            Top=entity.Top
+        };
+
+    }
+
+public static HobbysResponseDto ToDto(this Hobby hobby){
+return new HobbysResponseDto{
+    Id=hobby.Id,
+    Name=hobby.Name,
+    Top=hobby.Top
+};
+}
+
+
+
+public static HobbysEntity ToEntity(this Hobby hobbys){
+    return new HobbysEntity{
+        Id=hobbys.Id,
+        Name=hobbys.Name,
+        Top=hobbys.Top
+    };
+}
+
+public static Hobby ToModel(this CreateHobbyDto hobby){
+    return new Hobby{
+        Name=hobby.Name,
+        Top=hobby.Top,
+    };
+}
+  public static List<Hobby> ToModelList(this List<HobbysEntity> entities)
+    {
+        return entities?.Select(e => e.ToModel()).ToList() ?? new List<Hobby>();
+    }
+    public static List<HobbysResponseDto> ToDtoList(this List<Hobby> hobby)
+    {
+        return hobby?.Select(b => b.ToDto()).ToList() ?? new List<HobbysResponseDto>();
+    }
+
+}

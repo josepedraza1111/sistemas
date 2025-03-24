@@ -13,6 +13,8 @@ namespace PokemonApi.Dtos
         public int Defense { get; set; }
         [DataMember(Name = "Speed", Order = 3)]
         public int Speed { get; set; }
+        [DataMember(Name = "Height", Order = 4)]
+        public int Height {get; set;}
         
 
     }
