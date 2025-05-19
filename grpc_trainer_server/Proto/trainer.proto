@@ -8,10 +8,19 @@ import "google/protobuf/timestamp.proto";
 
 service TrainerService {
     rpc GetTrainer(TrainerByIdRequest) returns (TrainerResponse);
+    rpc GetTrainerById(TrainerByIdRequest) returns (TrainerResponse);
+    rpc CreateTrainer(CreateTrainerRequest) returns (TrainerResponse);
 }
 
 message TrainerByIdRequest {
     string id = 1;
+}
+
+message CreateTrainerRequest {
+    string name = 1;
+    int32 age = 2;
+    google.protobuf.Timestamp birthdate = 3;
+    repeated Medals medals = 4;
 }
 
 message TrainerResponse {

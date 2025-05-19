@@ -39,6 +39,16 @@ class TrainerServiceStub(object):
                 request_serializer=trainer__pb2.TrainerByIdRequest.SerializeToString,
                 response_deserializer=trainer__pb2.TrainerResponse.FromString,
                 _registered_method=True)
+        self.GetTrainerById = channel.unary_unary(
+                '/trainerpb.TrainerService/GetTrainerById',
+                request_serializer=trainer__pb2.TrainerByIdRequest.SerializeToString,
+                response_deserializer=trainer__pb2.TrainerResponse.FromString,
+                _registered_method=True)
+        self.CreateTrainer = channel.unary_unary(
+                '/trainerpb.TrainerService/CreateTrainer',
+                request_serializer=trainer__pb2.CreateTrainerRequest.SerializeToString,
+                response_deserializer=trainer__pb2.TrainerResponse.FromString,
+                _registered_method=True)
 
 
 class TrainerServiceServicer(object):
@@ -50,12 +60,34 @@ class TrainerServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetTrainerById(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateTrainer(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_TrainerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetTrainer': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTrainer,
                     request_deserializer=trainer__pb2.TrainerByIdRequest.FromString,
+                    response_serializer=trainer__pb2.TrainerResponse.SerializeToString,
+            ),
+            'GetTrainerById': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTrainerById,
+                    request_deserializer=trainer__pb2.TrainerByIdRequest.FromString,
+                    response_serializer=trainer__pb2.TrainerResponse.SerializeToString,
+            ),
+            'CreateTrainer': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateTrainer,
+                    request_deserializer=trainer__pb2.CreateTrainerRequest.FromString,
                     response_serializer=trainer__pb2.TrainerResponse.SerializeToString,
             ),
     }
@@ -85,6 +117,60 @@ class TrainerService(object):
             target,
             '/trainerpb.TrainerService/GetTrainer',
             trainer__pb2.TrainerByIdRequest.SerializeToString,
+            trainer__pb2.TrainerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetTrainerById(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/trainerpb.TrainerService/GetTrainerById',
+            trainer__pb2.TrainerByIdRequest.SerializeToString,
+            trainer__pb2.TrainerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateTrainer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/trainerpb.TrainerService/CreateTrainer',
+            trainer__pb2.CreateTrainerRequest.SerializeToString,
             trainer__pb2.TrainerResponse.FromString,
             options,
             channel_credentials,
