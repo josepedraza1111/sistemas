@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokemonApi.Infrastructure;
 
@@ -10,39 +11,18 @@ using PokemonApi.Infrastructure;
 namespace PokemonApi.Migrations
 {
     [DbContext(typeof(RelationalDbContext))]
-    partial class RelationalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250226232925_CreateBookstable")]
+    partial class CreateBookstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-
-            modelBuilder.Entity("HobbyApi.Infrastructure.Entities.HobbysEntity", b =>
-
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<int>("Top")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Hobbys");
-                });
-
-            modelBuilder.Entity("PokemonApi.Infrastructure.Entities.PokemonEntity", b =>
+            modelBuilder.Entity("PokemonApi.infrastructure.Entities.PokemonEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

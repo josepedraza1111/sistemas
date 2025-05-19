@@ -1,9 +1,11 @@
+
 using HobbyApi.Models;
 using HobbyApi.Infrastructure.Entities;
 using HobbyApi.Dtos;
 
 
 namespace HobbyApi.Mappers;
+
 
 public static class HobbysMappers
 {
@@ -51,5 +53,6 @@ public static Hobby ToModel(this CreateHobbyDto hobby){
     {
         return hobby?.Select(b => b.ToDto()).ToList() ?? new List<HobbysResponseDto>();
     }
+
 
 }

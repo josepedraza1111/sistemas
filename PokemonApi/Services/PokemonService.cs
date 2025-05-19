@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 using System.ServiceModel;
 using PokemonApi.Dtos;
 using PokemonApi.Mappers;
@@ -47,6 +48,7 @@ public class PokemonService : IPokemonService
         pokemonToUpdate.Name = pokemon.Name;
         pokemonToUpdate.Type = pokemon.Type;
         pokemonToUpdate.Level = pokemon.Level;
+
         pokemonToUpdate.Stats.Attack = pokemon.Stats.Attack;
         pokemonToUpdate.Stats.Defense = pokemon.Stats.Defense;
         pokemonToUpdate.Stats.Speed = pokemon.Stats.Speed;
@@ -68,5 +70,6 @@ public class PokemonService : IPokemonService
     
   
     return Pokemons.Select(h => h.ToDto()).ToList();
+
     }
 }

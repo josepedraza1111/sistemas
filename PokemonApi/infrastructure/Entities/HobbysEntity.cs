@@ -1,3 +1,4 @@
+
 namespace HobbyApi.Infrastructure.Entities;
 
     public class HobbysEntity
@@ -6,3 +7,4 @@ namespace HobbyApi.Infrastructure.Entities;
         public string Name { get; set; }
         public int Top { get; set; }
     }
+
