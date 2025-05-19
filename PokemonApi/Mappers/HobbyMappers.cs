@@ -1,6 +1,7 @@
 using HobbyApi.Models;
 using HobbyApi.Infrastructure.Entities;
 using HobbyApi.Dtos;
+using Org.BouncyCastle.Crypto.Parameters;
 
 
 namespace HobbyApi.Mappers;
@@ -39,17 +40,10 @@ public static HobbysEntity ToEntity(this Hobby hobbys){
 
 public static Hobby ToModel(this CreateHobbyDto hobby){
     return new Hobby{
+        Id= new Random().Next(1,int.MaxValue),
         Name=hobby.Name,
         Top=hobby.Top,
     };
 }
-  public static List<Hobby> ToModelList(this List<HobbysEntity> entities)
-    {
-        return entities?.Select(e => e.ToModel()).ToList() ?? new List<Hobby>();
-    }
-    public static List<HobbysResponseDto> ToDtoList(this List<Hobby> hobby)
-    {
-        return hobby?.Select(b => b.ToDto()).ToList() ?? new List<HobbysResponseDto>();
-    }
 
 }

@@ -4,8 +4,8 @@ namespace PokedexApi.Repositories;
 
 public interface IHobbyRepository
 {
-    Task<Hobby?> GetHobbyByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<List<Hobby>> GetHobbyByNameAsync(string name, CancellationToken cancellationToken);
+    Task<Hobby?> GetHobbyByIdAsync(int id, CancellationToken cancellationToken);
+    Task<Hobby?> GetHobbyByNameAsync(string name, CancellationToken cancellationToken);
 
-      Task<bool> DeleteHobbyByIdAsync(Guid id, CancellationToken cancellationToken);
+      Task<bool> DeleteHobbyByIdAsync(int id, CancellationToken cancellationToken);
 }

@@ -10,16 +10,16 @@ public class HobbyService : IHobbyService
     {
         _hobbyRepository = hobbyRepository;
     }
-    public async Task<Hobby?> GetHobbyByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<Hobby?> GetHobbyByIdAsync(int id, CancellationToken cancellationToken)
     {
         return await _hobbyRepository.GetHobbyByIdAsync(id, cancellationToken);
     }
 
-    public async Task<List<Hobby>> GetHobbyByNameAsync(string name, CancellationToken cancellationToken)
+    public async Task<Hobby?> GetHobbyByNameAsync(string name, CancellationToken cancellationToken)
     {
         return await _hobbyRepository.GetHobbyByNameAsync(name, cancellationToken);
     }
-       public async Task<bool> DeleteHobbyByIdAsync(Guid id, CancellationToken cancellationToken)
+       public async Task<bool> DeleteHobbyByIdAsync(int id, CancellationToken cancellationToken)
     {
         return await _hobbyRepository.DeleteHobbyByIdAsync(id, cancellationToken);
     }

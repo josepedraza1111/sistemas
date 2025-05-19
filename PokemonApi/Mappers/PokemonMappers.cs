@@ -11,10 +11,11 @@ public static class PokemonMapper{
             Name = pokemon.Name,
             Level = pokemon.Level,
             Type = pokemon.Type,
+            Height = pokemon.Height,
             Attack = pokemon.Stats.Attack,
             Defense = pokemon.Stats.Defense,
             Speed = pokemon.Stats.Speed,
-            Height = pokemon.Stats.Height
+            
         };
     }
     public static Pokemon ToModel(this PokemonEntity entity){
@@ -26,11 +27,11 @@ public static class PokemonMapper{
             Name = entity.Name,
             Level = entity.Level,
             Type = entity.Type,
+            Height = entity.Height,
             Stats = new Stats{
                 Attack = entity.Attack,
                 Defense = entity.Defense,
                 Speed = entity.Speed,
-                Height = entity.Height
             }
         };
     }
@@ -41,11 +42,12 @@ public static class PokemonMapper{
             Level = pokemon.Level,
             Name = pokemon.Name,
             Type = pokemon.Type,
+            Height = pokemon.Height,
             Stats = new StatsDto {
                 Attack = pokemon.Stats.Attack,
                 Speed = pokemon.Stats.Speed,
                 Defense = pokemon.Stats.Defense,
-                Height = pokemon.Stats.Height
+             
             }
         };
     }
@@ -57,6 +59,7 @@ public static class PokemonMapper{
             Name = pokemon.Name,
             Type = pokemon.Type,
             Level = pokemon.Level,
+            Height = pokemon.Height,
             Stats = pokemon.Stats.ToModel()
         };
     }
@@ -66,19 +69,10 @@ public static class PokemonMapper{
             Attack = stats.Attack,
             Defense = stats.Defense,
             Speed = stats.Speed,
-            Height = stats.Height
         };
     }
 
-    public static List<Pokemon> ToModelList(this List<PokemonEntity> entities)
-    {
-        return entities?.Select(e => e.ToModel()).ToList() ?? new List<Pokemon>();
-    }
-
-    public static List<PokemonResponseDto> ToDtoList(this List<Pokemon> pokemons)
-    {
-        return pokemons?.Select(b => b.ToDto()).ToList() ?? new List<PokemonResponseDto>();
-    }
+   
 
     
 }

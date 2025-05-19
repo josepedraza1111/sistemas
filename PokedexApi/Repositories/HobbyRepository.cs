@@ -17,7 +17,7 @@ public class HobbyRepository : IHobbyRepository
         _hobbyService = new ChannelFactory<IHobbyService>(binding, endpoint).CreateChannel();
     }
 
-    public async Task<Hobby?> GetHobbyByIdAsync(Guid id, CancellationToken cancellationToken){
+    public async Task<Hobby?> GetHobbyByIdAsync(int id, CancellationToken cancellationToken){
         try
         {
             var hobby = await _hobbyService.GetHobbyById(id, cancellationToken);
@@ -30,24 +30,22 @@ public class HobbyRepository : IHobbyRepository
         }
     }
 
-    public async Task<List<Hobby>> GetHobbyByNameAsync(string name, CancellationToken cancellationToken)
+    public async Task<Hobby?> GetHobbyByNameAsync(string name, CancellationToken cancellationToken)
     {
         try
         {
-            var hobby = await _hobbyService.GetHobbyByName(name, cancellationToken);
-            return hobby.ToModelList();
+             var hobby = await _hobbyService.GetHobbyByName(name, cancellationToken);
+                return hobby.ToModel();
         }
-        catch(FaultException ex) when (ex.Message == "Hobby not found ")
-        {
-            _logger.LogWarning(ex, "Hobby not found", name);
-            return new List<Hobby>();
-        }
-        
-    }
-     public async Task<bool> DeleteHobbyByIdAsync(Guid id, CancellationToken cancellationToken){
+            catch (FaultException ex) when (ex.Message == "Hobby not found")
+            {
+                _logger.LogWarning(ex, "Failed to get hobby {name}", name);
+                return null;
+            }
+        }     public async Task<bool> DeleteHobbyByIdAsync(int id, CancellationToken cancellationToken){
         try
         {
-            await _hobbyService.DeleteHobby(id, cancellationToken);
+            await _hobbyService.DeleteHobbyById(id, cancellationToken);
             return true;
         }
         catch(FaultException ex) when (ex.Message =="Hobby not found ")
@@ -56,7 +54,7 @@ public class HobbyRepository : IHobbyRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Hobby not found ", id);
+            _logger.LogError(ex, "Hobby not found {id}", id);
             throw;
         }
 }

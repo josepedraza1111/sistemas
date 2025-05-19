@@ -21,13 +21,4 @@ public static class HobbyMapper
             Top = hobby.Top
         };
     }
-
-    public static List<Hobby> ToModelList(this List<HobbyResponseDto> hobby)
-    {
-        return hobby?.Select(e => e.ToModel()).ToList() ?? new List<Hobby>();
-    }
-    public static List<HobbyResponse> ToDtoList(this List<Hobby> hobby)
-    {
-        return hobby?.Select(b => b.ToDto()).ToList() ?? new List<HobbyResponse>();
-    }
 }

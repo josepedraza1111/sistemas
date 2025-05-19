@@ -6,15 +6,11 @@ namespace PokedexApi.Infrastructure.Soap.Dtos;
     [DataContract(Name = "StatsDto", Namespace = "http://pokemon-api/pokemon-service")]
     public class StatsDto
     {   
-        [DataMember(Name = "Attack", Order = 1)]
+       [DataMember(Name = "Attack", Order = 1)]
         public int Attack { get; set; }
-        
         [DataMember(Name = "Defense", Order = 2)] 
         public int Defense { get; set; }
-        
         [DataMember(Name = "Speed", Order = 3)]
         public int Speed { get; set; }
         
-        [DataMember(Name = "Height", Order = 4)] // Añadido Height
-        public int Height { get; set; }
     }

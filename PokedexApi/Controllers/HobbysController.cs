@@ -17,7 +17,7 @@ public class HobbysController : ControllerBase
     }
     //localhost/api/v1/hobbies/123524-1234
     [HttpGet("{id}")]
-    public async Task<ActionResult<HobbyResponse>> GetHobbyById(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<HobbyResponse>> GetHobbyById(int id, CancellationToken cancellationToken)
     {
         var hobby = await _hobbyService.GetHobbyByIdAsync(id, cancellationToken);
         if (hobby == null){
@@ -26,16 +26,19 @@ public class HobbysController : ControllerBase
         return Ok(hobby.ToDto());
     }
   
-    [HttpGet]
-    public async Task<ActionResult<List<HobbyResponse>>> GetHobbyByName([FromQuery]string name, CancellationToken cancellationToken)
-    {
-        var hobby = await _hobbyService.GetHobbyByNameAsync(name, cancellationToken);
-        return Ok(hobby.ToDtoList());
-    }
+     [HttpGet]
+        public async Task<ActionResult<HobbyResponse>> GetHobbyByName([FromQuery] string name, CancellationToken cancellationToken)
+        {
+            var hobby = await _hobbyService.GetHobbyByNameAsync(name, cancellationToken);
+            if (hobby is null){
+                return NotFound();
+            }
+            return Ok(hobby.ToDto());
+        }
 
     [HttpDelete("{id}")]
 
-    public async Task<ActionResult> DeleteHobbyById(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult> DeleteHobbyById(int id, CancellationToken cancellationToken)
     {
         var deleted = await _hobbyService.DeleteHobbyByIdAsync(id, cancellationToken);
         if (deleted){

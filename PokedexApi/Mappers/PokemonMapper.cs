@@ -34,12 +34,54 @@ public  static class PokemonMapper
             Speed = pokemon.Stats.Speed
         };
     }
-       public static List<Pokemon> ToModelList(this List<PokemonResponseDto> pokemon)
+    public static Pokemon ToModel(this CreatePokemonRequest pokemon)
     {
-        return pokemon?.Select(e => e.ToModel()).ToList() ?? new List<Pokemon>();
+        return new Pokemon
+        {
+            Name = pokemon.Name,
+            Type = pokemon.Type,
+            Level = pokemon.Level,
+            Attack = pokemon.Attack,
+            Defense = pokemon.Defense,
+            Speed = pokemon.Speed
+        };
     }
-    public static List<PokemonResponse> ToDtoList(this List<Pokemon> pokemon)
-    {
-        return pokemon?.Select(b => b.ToDto()).ToList() ?? new List<PokemonResponse>();
-    }
+     public static CreatePokemonDto ToSoapDto(this Pokemon pokemon){
+        return new CreatePokemonDto{
+            Name = pokemon.Name,
+            Type = pokemon.Type,
+            Level = pokemon.Level,
+            Stats = new StatsDto{
+                Attack = pokemon.Attack,
+                Speed = pokemon.Speed,
+                Defense = pokemon.Defense
+                
+            }
+        };
+     }
+     public static Pokemon ToModel(this UpdatePokemonRequest pokemon)
+     {
+        return new Pokemon {
+            Name = pokemon.Name,
+            Type = pokemon.Type,
+            Level = pokemon.Level,
+            Attack = pokemon.Attack,
+            Defense = pokemon.Defense,
+            Speed = pokemon.Speed
+        };
+     }
+     public static UpdatePokemonDto ToUpdateSoapDto(this Pokemon pokemon)
+     {
+         return new UpdatePokemonDto{
+                Id = pokemon.Id,
+             Name = pokemon.Name,
+             Type = pokemon.Type,
+             Level = pokemon.Level,
+             Stats = new StatsDto{
+                 Attack = pokemon.Attack,
+                 Defense = pokemon.Defense,
+                 Speed = pokemon.Speed
+             }
+         };
+     }
 }

@@ -4,13 +4,14 @@ using HobbyApi.Dtos;
 public interface IHobbyService
 {
         [OperationContract ]
-        Task<HobbysResponseDto> GetHobbyById(Guid id,CancellationToken cancellationToken);
+        Task<HobbysResponseDto> GetHobbyById(int id,CancellationToken cancellationToken);
 
         [OperationContract ]
-        Task<bool> DeleteHobbyById(Guid id, CancellationToken cancellationToken);
+        Task<bool> DeleteHobbyById(int id, CancellationToken cancellationToken);
 
         [OperationContract]
-         Task<List<HobbysResponseDto>> GetHobbyByName(string name,CancellationToken cancellationToken);
+        Task<HobbysResponseDto> GetHobbyByName(string name, CancellationToken cancellationToken);
+
 
            [OperationContract]
         Task<HobbysResponseDto> CreateHobby(CreateHobbyDto createHobbieDto,CancellationToken cancellationToken);

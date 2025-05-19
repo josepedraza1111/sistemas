@@ -1,4 +1,6 @@
 using System.ServiceModel;
+using PokedexApi.Exceptions;
+using PokedexApi.Exceptions;
 using PokedexApi.Infrastructure.Soap.Contracts;
 using PokedexApi.Mappers;
 using PokedexApi.Models;
@@ -24,22 +26,22 @@ public class PokemonRepository : IPokemonRepository {
         }
         catch(FaultException ex) when (ex.Message =="Pokemon not found ")
         {
-            _logger.LogWarning(ex, "Pokemon not found ", id);
+            _logger.LogWarning(ex, "Pokemon not found {id}", id);
             return null;
         }
     }
 
-    public async Task<List<Pokemon>> GetPokemonByNameAsync(string name, CancellationToken cancellationToken)
+    public async Task<Pokemon?> GetPokemonByNameAsync(string name, CancellationToken cancellationToken)
     {
         try
         {
             var pokemon = await _pokedexService.GetPokemonByName(name, cancellationToken);
-            return pokemon.ToModelList();
+            return pokemon.ToModel();
         }
         catch(FaultException ex) when (ex.Message == "Pokemon not found")
         {
-            _logger.LogWarning(ex, "Pokemon not found ", name);
-            return new List<Pokemon>();
+            _logger.LogWarning(ex, "Pokemon not found {name}", name);
+            return null;
         }
     }
 
@@ -55,8 +57,42 @@ public class PokemonRepository : IPokemonRepository {
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Pokemon not found ", id);
+            _logger.LogError(ex, "Pokemon not found {id}", id);
+            throw;
+        }
+    }
+       public async Task<Pokemon> CreatePokemonAsync(Pokemon pokemon, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var pokemonCreated = await _pokedexService.CreatePokemon(pokemon.ToSoapDto(), cancellationToken);
+            return pokemonCreated.ToModel();
+        }
+        catch(FaultException ex) when (ex.Message.Contains("Pokemon"))
+        {
+            throw new PokemonValidationException(ex.Message);
+        }
+        catch(FaultException ex)
+        {
+            _logger.LogError(ex, "Error creating pokemon");
+            throw;
+        }
+    }
+    public async Task UpdatePokemonAsync( Pokemon pokemon, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _pokedexService.UpdatePokemon( pokemon.ToUpdateSoapDto(), cancellationToken);
+        }
+        catch(FaultException ex) when (ex.Message.Contains("Pokemon not found "))
+        {
+            throw new PokemonNotFoundException();
+        }
+        catch(FaultException ex)
+        {
+            _logger.LogError(ex, "Error updating pokemon");
             throw;
         }
     }
 }
+

@@ -7,11 +7,11 @@ namespace PokedexApi.Infrastructure.Soap.Contracts;
 
 public interface IHobbyService{
     [OperationContract] 
-    Task<HobbyResponseDto> GetHobbyById(Guid id, CancellationToken cancellationToken); 
+    Task<HobbyResponseDto> GetHobbyById(int id, CancellationToken cancellationToken); 
     [OperationContract]
-    Task<bool> DeleteHobby(Guid id, CancellationToken cancellationToken);
+    Task<bool> DeleteHobbyById(int id, CancellationToken cancellationToken);
     [OperationContract]
-    Task<List<HobbyResponseDto>> GetHobbyByName(string name, CancellationToken cancellationToken);
+    Task<HobbyResponseDto> GetHobbyByName(string name, CancellationToken cancellationToken);
     [OperationContract]
     Task<HobbyResponseDto> CreateHobby(CreateHobbyDto createHobby, CancellationToken cancellationToken);
     [OperationContract]

@@ -15,7 +15,7 @@ public class HobbyService : IHobbyService
          _hobbyRepository= hobbyRepository;
     }
 
-    public  async Task<HobbysResponseDto> GetHobbyById(Guid id,CancellationToken cancellationToken){
+    public  async Task<HobbysResponseDto> GetHobbyById(int id,CancellationToken cancellationToken){
          var hobby =await _hobbyRepository.GetHobbyByIdAsync(id,cancellationToken);
    if (hobby is null)
    {
@@ -26,7 +26,7 @@ public class HobbyService : IHobbyService
     }
 
       
-        public async Task<bool> DeleteHobbyById(Guid id, CancellationToken cancellationToken){
+        public async Task<bool> DeleteHobbyById(int id, CancellationToken cancellationToken){
             var hobby = await _hobbyRepository.GetHobbyByIdAsync(id,cancellationToken);
         if(hobby is null)
 {
@@ -36,21 +36,16 @@ public class HobbyService : IHobbyService
     return true;
         }
 
-    
-     public async Task<List<HobbysResponseDto>> GetHobbyByName(string name,CancellationToken cancellationToken){
-            
-    var hobbys = await _hobbyRepository.GetHobbyByNameAsync(name, cancellationToken);
-
-
-    if (hobbys== null || !hobbys.Any())
+     public async Task<HobbysResponseDto> GetHobbyByName(string name, CancellationToken cancellationToken)
     {
-        return new List<HobbysResponseDto>();
+        var hobby = await _hobbyRepository.GetHobbyByNameAsync(name, cancellationToken);
+        if (hobby.Count == 0)
+        {
+            throw new FaultException("Hobby not found");
+        }
+        return hobby.First().ToDto();
     }
-    
- 
-    return hobbys.Select(h => h.ToDto()).ToList();
-
-         }
+  
  public async Task<HobbysResponseDto> CreateHobby(CreateHobbyDto createHobby, CancellationToken cancellationToken)
 {
     if (createHobby == null)
@@ -59,7 +54,7 @@ public class HobbyService : IHobbyService
     }
 
     var hobbyToCreate = createHobby.ToModel();
-    hobbyToCreate.ValidateName().ValidateTop();
+    hobbyToCreate.ValidateName();
 
     await _hobbyRepository.AddAsync(hobbyToCreate, cancellationToken);
     return hobbyToCreate.ToDto();

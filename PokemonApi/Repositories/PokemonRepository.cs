@@ -20,13 +20,7 @@ public class PokemonRepository : IPokemonRepository
         return pokemon?.ToModel();
     }
 
-    public async Task<List<Pokemon>> GetPokemonsByNameAsync(string name, CancellationToken cancellationToken)
-    {
-        var pokemons = await _context.Pokemons.AsNoTracking()
-            .Where(s => s.Name.Contains(name))
-            .ToListAsync(cancellationToken);
-        return pokemons.Select(h => h.ToModel()).ToList(); 
-    }
+
 
     public async Task DeleteAsync(Pokemon pokemon, CancellationToken cancellationToken)
     {
@@ -40,7 +34,7 @@ public class PokemonRepository : IPokemonRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    // Implementación del método UpdateAsync
+   
     public async Task UpdateAsync(Pokemon pokemon, CancellationToken cancellationToken)
     {
         _context.Pokemons.Update(pokemon.ToEntity());

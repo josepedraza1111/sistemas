@@ -15,17 +15,11 @@ namespace PokemonApi.Repositories;
         {
             _context = context;
         }
-
-        public async Task<Hobby> GetHobbyByIdAsync(Guid id, CancellationToken cancellationToken)
-        {
-            var hobby = await _context.Hobbys.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
-            if (hobby == null)
-            {
-                throw new Exception("Hobby not found");
-            }
-            return hobby.ToModel();
-        }
-
+        public async Task<Hobby> GetHobbyByIdAsync(int id, CancellationToken cancellationToken)
+    {
+        var hobby = await _context.Hobbys.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+        return hobby?.ToModel();
+    }
         public async Task DeleteHobbyAsync(Hobby hobby, CancellationToken cancellationToken)
         {
             _context.Hobbys.Remove(hobby.ToEntity());
@@ -34,9 +28,12 @@ namespace PokemonApi.Repositories;
 
         public async Task<List<Hobby>> GetHobbyByNameAsync(string name, CancellationToken cancellationToken)
         {
-            var hobbys = await _context.Hobbys.AsNoTracking().Where(s => s.Name.Contains(name)).ToListAsync(cancellationToken);
-            return hobbys.Select(h => h.ToModel()).ToList();
-        }
+              return await _context.Hobbys
+            .Where(s => s.Name.Contains(name))
+            .Select(s => s.ToModel())
+            .ToListAsync(cancellationToken);
+    }
+        
 
         public async Task AddAsync(Hobby hobby, CancellationToken cancellationToken)
         {

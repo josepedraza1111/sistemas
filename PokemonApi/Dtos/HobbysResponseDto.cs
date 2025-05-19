@@ -5,7 +5,7 @@ namespace HobbyApi.Dtos;
 public class HobbysResponseDto
 {
         [DataMember(Name = "Id", Order = 1)]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [DataMember(Name = "Name", Order = 2)]
         public string Name { get; set; }
