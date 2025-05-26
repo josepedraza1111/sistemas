@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using PokemonApi.Infrastructure.Entities;
+
 using HobbyApi.Infrastructure.Entities;
 
 namespace PokemonApi.Infrastructure;
 
 public class RelationalDbContext : DbContext
+
 {
     public DbSet<PokemonEntity> Pokemons {get; set;}
     public DbSet<HobbysEntity> Hobbys{get; set;}
@@ -14,6 +16,7 @@ public class RelationalDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<PokemonEntity>(entity =>{
@@ -34,5 +37,6 @@ public class RelationalDbContext : DbContext
         });
 
      
+
     }
 }

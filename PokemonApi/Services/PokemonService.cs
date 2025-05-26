@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 using System.ServiceModel;
 using PokemonApi.Dtos;
 using PokemonApi.Mappers;
@@ -47,7 +48,11 @@ public class PokemonService : IPokemonService
         pokemonToUpdate.Name = pokemon.Name;
         pokemonToUpdate.Type = pokemon.Type;
         pokemonToUpdate.Level = pokemon.Level;
+<<<<<<< HEAD
         pokemonToUpdate.Height = pokemon.Height;
+=======
+
+>>>>>>> 8d421da23b5c10fd10253551a2ef077f60f8d007
         pokemonToUpdate.Stats.Attack = pokemon.Stats.Attack;
         pokemonToUpdate.Stats.Defense = pokemon.Stats.Defense;
         pokemonToUpdate.Stats.Speed = pokemon.Stats.Speed;
@@ -62,9 +67,20 @@ public class PokemonService : IPokemonService
     var Pokemons = await _pokemonRepository.GetByNameAsync(name, cancellationToken);
 
   
+<<<<<<< HEAD
   if(Pokemons.Count == 0){
             throw new FaultException("Pokemon not found");
         }
         return Pokemons.First().ToDto();
+=======
+    if (Pokemons == null || !Pokemons.Any())
+    {
+        return new List<PokemonResponseDto>();
+    }
+    
+  
+    return Pokemons.Select(h => h.ToDto()).ToList();
+
+>>>>>>> 8d421da23b5c10fd10253551a2ef077f60f8d007
     }
 }

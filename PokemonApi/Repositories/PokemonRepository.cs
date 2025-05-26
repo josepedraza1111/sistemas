@@ -34,11 +34,18 @@ public class PokemonRepository : IPokemonRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
+<<<<<<< HEAD
    
+=======
+
+    // Implementación del método UpdateAsync
+
+>>>>>>> 8d421da23b5c10fd10253551a2ef077f60f8d007
     public async Task UpdateAsync(Pokemon pokemon, CancellationToken cancellationToken)
     {
         _context.Pokemons.Update(pokemon.ToEntity());
         await _context.SaveChangesAsync(cancellationToken);
+
     }
 
     // Implementación del método GetByNameAsync
@@ -49,4 +56,5 @@ public class PokemonRepository : IPokemonRepository
             .ToListAsync(cancellationToken);
         return pokemons.Select(p => p.ToModel()).ToList();
     }
+
 }

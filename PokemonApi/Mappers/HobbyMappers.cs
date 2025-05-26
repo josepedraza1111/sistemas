@@ -1,3 +1,4 @@
+
 using HobbyApi.Models;
 using HobbyApi.Infrastructure.Entities;
 using HobbyApi.Dtos;
@@ -5,6 +6,7 @@ using Org.BouncyCastle.Crypto.Parameters;
 
 
 namespace HobbyApi.Mappers;
+
 
 public static class HobbysMappers
 {
@@ -45,5 +47,6 @@ public static Hobby ToModel(this CreateHobbyDto hobby){
         Top=hobby.Top,
     };
 }
+
 
 }

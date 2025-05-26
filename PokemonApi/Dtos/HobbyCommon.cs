@@ -1,6 +1,7 @@
 using System.Runtime.Serialization;
 
 namespace HobbyApi.Dtos
+
 {
     [DataContract(Name = "HobbyCommon", Namespace = "http://hobby-api/hobby-service")]
     [KnownType(typeof(CreateHobbyDto))]
