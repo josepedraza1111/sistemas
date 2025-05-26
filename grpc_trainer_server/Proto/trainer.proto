@@ -37,6 +37,7 @@ message Medals {
     MedalType type = 2;
 }
 
+
 enum MedalType {
     UNKNOWN = 0;
     GOLD = 1;

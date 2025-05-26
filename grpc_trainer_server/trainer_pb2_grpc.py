@@ -180,4 +180,5 @@ class TrainerService(object):
             wait_for_ready,
             timeout,
             metadata,
+            
             _registered_method=True)
