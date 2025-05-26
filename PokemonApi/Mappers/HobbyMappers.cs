@@ -1,9 +1,12 @@
-using PokemonApi.Models;
-using PokemonApi.Dtos;
-using PokemonApi.Infrastructure.Entities;
+
+using HobbyApi.Models;
+using HobbyApi.Infrastructure.Entities;
+using HobbyApi.Dtos;
+using Org.BouncyCastle.Crypto.Parameters;
 
 
-namespace PokemonApi.Mappers;
+namespace HobbyApi.Mappers;
+
 
 public static class HobbysMappers
 {
@@ -39,9 +42,11 @@ public static HobbysEntity ToEntity(this Hobby hobbys){
 
 public static Hobby ToModel(this CreateHobbyDto hobby){
     return new Hobby{
+        Id= new Random().Next(1,int.MaxValue),
         Name=hobby.Name,
         Top=hobby.Top,
     };
 }
+
 
 }

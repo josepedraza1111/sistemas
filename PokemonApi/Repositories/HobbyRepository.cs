@@ -1,11 +1,13 @@
-using PokemonApi.Mappers;
+
+using HobbyApi.Mappers;
 using PokemonApi.Infrastructure;
-using PokemonApi.Models;
+using HobbyApi.Models;
 using Microsoft.EntityFrameworkCore;
+using HobbyApi.Repositories;
 
 
-namespace PokemonApi.Repositories
-{
+namespace PokemonApi.Repositories;
+
     public class HobbyRepository :  IHobbyRepository
     {
         private readonly RelationalDbContext _context;
@@ -14,17 +16,29 @@ namespace PokemonApi.Repositories
         {
             _context = context;
         }
-
+<<<<<<< HEAD
         public async Task<Hobby> GetHobbyByIdAsync(int id, CancellationToken cancellationToken)
+    {
+        var hobby = await _context.Hobbys.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+        return hobby?.ToModel();
+    }
+=======
+
+
+        public async Task<Hobby> GetHobbyByIdAsync(Guid id, CancellationToken cancellationToken)
+
         {
             var hobby = await _context.Hobbys.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
             if (hobby == null)
             {
-                throw new Exception("Hobby no encontrado");
+
+                throw new Exception("Hobby not found");
+
             }
             return hobby.ToModel();
         }
 
+>>>>>>> 8d421da23b5c10fd10253551a2ef077f60f8d007
         public async Task DeleteHobbyAsync(Hobby hobby, CancellationToken cancellationToken)
         {
             _context.Hobbys.Remove(hobby.ToEntity());
@@ -33,9 +47,12 @@ namespace PokemonApi.Repositories
 
         public async Task<List<Hobby>> GetHobbyByNameAsync(string name, CancellationToken cancellationToken)
         {
-            var hobbys = await _context.Hobbys.AsNoTracking().Where(s => s.Name.Contains(name)).ToListAsync(cancellationToken);
-            return hobbys.Select(h => h.ToModel()).ToList();
-        }
+              return await _context.Hobbys
+            .Where(s => s.Name.Contains(name))
+            .Select(s => s.ToModel())
+            .ToListAsync(cancellationToken);
+    }
+        
 
         public async Task AddAsync(Hobby hobby, CancellationToken cancellationToken)
         {
@@ -56,8 +73,9 @@ namespace PokemonApi.Repositories
             }
             else
             {
-                throw new Exception("Hobby no encontrado");
+
+                throw new Exception("Hobby not found");
             }
         }
     }
-}
+

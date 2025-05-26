@@ -5,6 +5,13 @@ namespace PokemonApi.Models
         public int Attack { get; set; }
         public int Defense { get; set; }
         public int Speed { get; set; }
-        public int Height { get; set; } // Añadido Height
+<<<<<<< HEAD
+        
+=======
+
+         public int Height {get; set;}
+>>>>>>> 8d421da23b5c10fd10253551a2ef077f60f8d007
+        
+
     }
 }

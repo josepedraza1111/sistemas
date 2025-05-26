@@ -1,5 +1,7 @@
-namespace PokemonApi.Infrastructure.Entities
-{
+
+namespace PokemonApi.Infrastructure.Entities;
+
+
     public class PokemonEntity
     {
         public Guid Id { get; set; }
@@ -12,4 +14,3 @@ namespace PokemonApi.Infrastructure.Entities
         public int Defense { get; set; }
         public int Speed { get; set; }
     }
-}

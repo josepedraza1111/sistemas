@@ -7,7 +7,8 @@ namespace PokemonApi.Dtos
         public string Type { get; set; }
         public int Level { get; set; }
 
-        public int Height{get;set;}
+        public int Height { get; set; }
+        public int Weight { get; set; } // New field
         public StatsDto Stats { get; set; }
 
     }

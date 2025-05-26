@@ -1,9 +1,9 @@
-namespace PokemonApi.Dtos;
 using System.Runtime.Serialization;
 
-[DataContract(Name = "CreatePokemonDto", Namespace = "http://pokemon-api/pokemon-service")]
 
-public class CreatePokemonDto : PokemonCommonDto
-{
+namespace PokemonApi.Dtos;
+[DataContract(Name ="CreatePokemonDto", Namespace ="http://pokemon-api/pokemon-service")]//decorador para que sepa como debe de serializar
+public class CreatePokemonDto : PokemonCommon{
     
 }
+

@@ -1,5 +1,7 @@
 using System.ServiceModel;
-using PokemonApi.Dtos;
+
+using HobbyApi.Dtos;
+
 [ServiceContract(Name ="JoseMariaPedrazaTorres",Namespace ="http://hobby-api/hobby-service")]
 public interface IHobbyService
 {
@@ -9,8 +11,10 @@ public interface IHobbyService
         [OperationContract ]
         Task<bool> DeleteHobbyById(int id, CancellationToken cancellationToken);
 
+
         [OperationContract]
-         Task<List<HobbysResponseDto>> GetHobbyByName(string name,CancellationToken cancellationToken);
+        Task<HobbysResponseDto> GetHobbyByName(string name, CancellationToken cancellationToken);
+
 
            [OperationContract]
         Task<HobbysResponseDto> CreateHobby(CreateHobbyDto createHobbieDto,CancellationToken cancellationToken);

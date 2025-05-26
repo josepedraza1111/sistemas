@@ -8,15 +8,19 @@ namespace PokemonApi.Repositories;
 public class PokemonRepository : IPokemonRepository
 {   
     private readonly RelationalDbContext _context;
-    public PokemonRepository(RelationalDbContext context ){
+
+    public PokemonRepository(RelationalDbContext context)
+    {
         _context = context;
     }
 
     public async Task<Pokemon> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var Pokemon = await _context.Pokemons.AsNoTracking().FirstOrDefaultAsync(s=>s.Id == id, cancellationToken); //urm
-        return Pokemon.ToModel();
+        var pokemon = await _context.Pokemons.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id, cancellationToken); 
+        return pokemon?.ToModel();
     }
+
+
 
     public async Task DeleteAsync(Pokemon pokemon, CancellationToken cancellationToken)
     {
@@ -30,9 +34,27 @@ public class PokemonRepository : IPokemonRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
+<<<<<<< HEAD
+   
+=======
+
+    // Implementación del método UpdateAsync
+
+>>>>>>> 8d421da23b5c10fd10253551a2ef077f60f8d007
     public async Task UpdateAsync(Pokemon pokemon, CancellationToken cancellationToken)
     {
         _context.Pokemons.Update(pokemon.ToEntity());
         await _context.SaveChangesAsync(cancellationToken);
-    }   
+
+    }
+
+    // Implementación del método GetByNameAsync
+    public async Task<List<Pokemon>> GetByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        var pokemons = await _context.Pokemons.AsNoTracking()
+            .Where(p => p.Name.Contains(name))
+            .ToListAsync(cancellationToken);
+        return pokemons.Select(p => p.ToModel()).ToList();
+    }
+
 }

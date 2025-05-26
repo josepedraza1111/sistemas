@@ -14,6 +14,7 @@ namespace PokemonApi.Dtos
         
         [DataMember(Name = "Speed", Order = 3)]
         public int Speed { get; set; }
+      
         
         [DataMember(Name = "Height", Order = 4)] // Añadido Height
         public int Height { get; set; }
