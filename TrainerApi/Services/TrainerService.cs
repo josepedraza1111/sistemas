@@ -7,19 +7,22 @@ namespace TrainerApi.Services;
 
 public class TrainerService : TrainerApi.TrainerService.TrainerServiceBase
 {
+    private readonly ITrainerRepository _trainerRepository;
 
-    private readonly ITrainerRepository _trainerRepository; 
-
-    public TrainerService(ITrainerRepository trainerRepository){
+    public TrainerService(ITrainerRepository trainerRepository)
+    {
         _trainerRepository = trainerRepository;
     }
+
     public override async Task<TrainerResponse> GetTrainer(TrainerByIdRequest request, ServerCallContext context)
     {
         var trainer = await _trainerRepository.GetByIdAsync(request.Id, context.CancellationToken);
-        if (trainer is null){
-            throw new RpcException(new Status(StatusCode.NotFound,"Trainer not found")); 
+        if (trainer is null)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Trainer not found"));
         }
-        return trainer.ToResponse(); 
+
+        return trainer.ToResponse();
     }
 
     public override async Task<CreateTrainersResponse> CreateTrainer(IAsyncStreamReader<CreateTrainerRequest> requestStream, ServerCallContext context)
@@ -37,7 +40,7 @@ public class TrainerService : TrainerApi.TrainerService.TrainerServiceBase
             var createdTrainer = await _trainerRepository.CreateAsync(trainer, context.CancellationToken);
             createTrainers.Add(createdTrainer.ToResponse());
         }
-        
+
         return new CreateTrainersResponse
         {
             SuccessCount = createTrainers.Count,
@@ -45,4 +48,19 @@ public class TrainerService : TrainerApi.TrainerService.TrainerServiceBase
         };
     }
 
+    public override async Task GetTrainersByName(GetTrainersByNameRequest request, IServerStreamWriter<TrainerResponse> responseStream, ServerCallContext context)
+    {
+        
+        if (request.Name.Length <= 1)
+        {
+            throw new RpcException(new Status(StatusCode.InvalidArgument, "Name field is required"));
+        }
+        var trainers = await _trainerRepository.GetByNameAsync(request.Name, context.CancellationToken);
+
+        foreach (var trainer in trainers)
+        {
+            await responseStream.WriteAsync(trainer.ToResponse());
+            await Task.Delay(TimeSpan.FromSeconds(5), context.CancellationToken);
+        }
+    }
 }
