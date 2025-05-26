@@ -7,9 +7,9 @@ option csharp_namespace = "TrainerApi";
 import "google/protobuf/timestamp.proto";
 
 service TrainerService {
-    rpc GetTrainer(TrainerByIdRequest) returns (TrainerResponse);
     rpc GetTrainerById(TrainerByIdRequest) returns (TrainerResponse);
     rpc CreateTrainer(CreateTrainerRequest) returns (TrainerResponse);
+    rpc GetTrainersByName(GetTrainersByNameRequest) returns (TrainersListResponse);
 }
 
 message TrainerByIdRequest {
@@ -42,4 +42,12 @@ enum MedalType {
     GOLD = 1;
     SILVER = 2;
     BRONZE = 3;
+}
+
+message GetTrainersByNameRequest {
+    string name = 1;
+}
+
+message TrainersListResponse {
+    repeated TrainerResponse trainers = 1;
 }

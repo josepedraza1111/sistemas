@@ -58,7 +58,7 @@ class TrainerServiceServicer(trainer_pb2_grpc.TrainerServiceServicer):
 
         # Verificamos que no exista un trainer con el mismo nombre (opcional)
         for t in TRAINERS_DB.values():
-            if t["name"] == request.name:
+            if t["name"].lower() == request.name.lower():
                 context.set_code(grpc.StatusCode.ALREADY_EXISTS)
                 context.set_details('Trainer already exists with that name')
                 return trainer_pb2.TrainerResponse()
@@ -84,6 +84,25 @@ class TrainerServiceServicer(trainer_pb2_grpc.TrainerServiceServicer):
             medals=request.medals,
             created_at=now
         )
+
+    def GetTrainersByName(self, request, context):
+        print(f"GetTrainersByName solicitado para nombre: {request.name}")
+        name = request.name.lower()
+        trainers = []
+        for trainer in TRAINERS_DB.values():
+            if trainer["name"].lower() == name:
+                trainers.append(trainer_pb2.TrainerResponse(
+                    id=trainer["id"],
+                    name=trainer["name"],
+                    birthdate=trainer["birthdate"],
+                    medals=trainer["medals"],
+                    created_at=trainer["created_at"]
+                ))
+        if not trainers:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('No trainers found with that name')
+            return trainer_pb2.TrainersListResponse()
+        return trainer_pb2.TrainersListResponse(trainers=trainers)
 
 
 def serve():
